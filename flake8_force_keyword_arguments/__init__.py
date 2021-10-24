@@ -1,3 +1,5 @@
+# mypy: allow_untyped_calls
+
 import sys
 
 if sys.version_info < (3, 8):
