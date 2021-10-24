@@ -26,10 +26,15 @@ jobs:
           poetry install --remove-untracked
       - name: Lint with flake8
         run: |
-          flake8 . --kwargs-inspect-module-extend functools,itertools --kwargs-ignore-function-pattern-extend ^pytest.mark.parametrize$
+          poetry run flake8 . --kwargs-inspect-module-extend functools,itertools --kwargs-ignore-function-pattern-extend ^pytest.mark.parametrize$
       - name: Type check with mypy
         run: |
-          mypy -p flake8_force_keyword_arguments
+          poetry run mypy -p flake8_force_keyword_arguments
       - name: Test with pytest
         run: |
-          pytest tests
+          poetry run pytest tests --cov=./flake8_force_keyword_arguments --cov-report=xml
+      - name: "Upload coverage to Codecov"
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+          # token: ${{ secrets.CODECOV_TOKEN }}
