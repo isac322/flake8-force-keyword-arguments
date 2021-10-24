@@ -12,7 +12,4 @@ end_of_line = lf
 charset = utf-8
 
 [*.py]
-max_line_length = 100
-
-[Makefile]
-indent_style = tab
+max_line_length = 120
