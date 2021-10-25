@@ -39,24 +39,28 @@ jobs:
           fail_ci_if_error: true
           # token: ${{ secrets.CODECOV_TOKEN }}
 
-#---
-#
-#name: CD
-#
-#on:
+---
+
+name: CD
+
+on:
 #  push:
 #    branches: [ master ]
 #    tags: [ '*' ]
-#
-#jobs:
-#  build:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@master
-#      - name: Set up Python 3.9
-#        uses: actions/setup-python@v1
-#        with:
-#          python-version: 3.9
+
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.10'
       - name: Install pypa/build
         run: >-
           python -m
@@ -70,11 +74,8 @@ jobs:
           --sdist
           --wheel
           --outdir dist/
-      - name: Build Python package
-        run: |
-          poetry build
       - name: Publish distribution 📦 to Test PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
+          user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
