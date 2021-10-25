@@ -1,7 +1,9 @@
 # flake8-force-keyword-arguments
 
-[![PyPI](https://img.shields.io/pypi/v/flake8-force-keyword-arguments?label=pypi&logo=python&style=flat-square)](https://pypi.org/project/flake8-force-keyword-arguments/)
+[![PyPI](https://img.shields.io/pypi/v/flake8-force-keyword-arguments?label=pypi&logo=pypi&style=flat-square)](https://pypi.org/project/flake8-force-keyword-arguments/)
+[![PyPI - Wheel](https://img.shields.io/pypi/wheel/flake8-force-keyword-arguments?style=flat-square&logo=pypi)](https://pypi.org/project/flake8-force-keyword-arguments/)
 [![Python Version](https://img.shields.io/pypi/pyversions/flake8-force-keyword-arguments.svg?style=flat-square&logo=python)](https://pypi.org/project/flake8-force-keyword-arguments/)
+[![PyPI - Implementation](https://img.shields.io/pypi/implementation/flake8-force-keyword-arguments?style=flat-square&logo=python)]((https://pypi.org/project/flake8-force-keyword-arguments/))
 ![Codecov](https://img.shields.io/codecov/c/gh/isac322/flake8-force-keyword-arguments?style=flat-square&logo=codecov)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/isac322/flake8-force-keyword-arguments/master?logo=github&style=flat-square)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/isac322/flake8-force-keyword-arguments/CI/master?logo=github&style=flat-square)

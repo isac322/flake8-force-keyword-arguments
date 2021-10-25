@@ -95,3 +95,13 @@ module = [
     "marisa_trie"
 ]
 ignore_missing_imports = true
+
+
+[tool.coverage.run]
+omit = ['*/__init__.py']
+
+#[tool.coverage.paths]
+#source = ['flake8_force_keyword_arguments']
+
+[tool.coverage.report]
+exclude_lines = ['pragma: no cover']
