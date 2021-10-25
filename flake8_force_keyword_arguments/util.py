@@ -2,7 +2,7 @@ import ast
 import inspect
 from enum import Enum
 from types import ModuleType
-from typing import Iterable, Optional, Set
+from typing import Any, Callable, Iterable, Optional, Set
 
 
 class QualifierOption(str, Enum):
@@ -67,12 +67,13 @@ def _list_pos_only_callables(
 
 def does_callable_have_poa_more_than(o: object, poa_threshold: int) -> bool:
     """POA: Positional Only Arguments"""
-    sig = get_invocation_signature(o)
-    if sig is None:
+    func = get_inspectable_function(o)
+    if func is None:
         return False
 
+    sig = inspect.signature(func)
     params = tuple(sig.parameters.values())
-    if len(params) > 0 and params[0].name in ('self', 'cls'):
+    if inspect.ismethoddescriptor(func) and len(params) > 0:
         params = params[1:]
 
     poa_count = 0
@@ -85,22 +86,28 @@ def does_callable_have_poa_more_than(o: object, poa_threshold: int) -> bool:
     return poa_count >= poa_threshold
 
 
-def get_invocation_signature(o: object) -> Optional[inspect.Signature]:
+def get_inspectable_function(o: object) -> Optional[Callable[..., Any]]:
     try:
-        return inspect.signature(o)  # type: ignore[arg-type]
+        inspect.signature(o)  # type: ignore[arg-type]
     except (ValueError, TypeError):
         pass
+    else:
+        return o  # type: ignore
 
     if inspect.isclass(o):
         try:
-            return inspect.signature(o.__init__)  # type: ignore[misc]
+            inspect.signature(o.__init__)  # type: ignore[misc]
         except (ValueError, TypeError):
             return None
+        else:
+            return o.__init__  # type: ignore[no-any-return,misc]
     elif callable(o):
         try:
-            return inspect.signature(o.__call__)
+            inspect.signature(o.__call__)
         except (ValueError, TypeError):
             return None
+        else:
+            return o.__call__
     return None
 
 
