@@ -32,7 +32,7 @@ jobs:
           poetry run mypy -p flake8_force_keyword_arguments
       - name: Test with pytest
         run: |
-          poetry run pytest tests --cov=./flake8_force_keyword_arguments --cov-report=xml
+          poetry run pytest tests --cov=./flake8_force_keyword_arguments --cov-report=xml --cov-config=./pyproject.toml
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v2
         with:
