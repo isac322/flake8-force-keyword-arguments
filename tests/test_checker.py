@@ -56,6 +56,6 @@ def test_ignore_function_pattern_extended_multiple(flake8_path):
         ),
     )
     result = flake8_path.run_flake8(
-        ['--kwargs-max-positional-arguments', '2', '--kwargs-ignore-function-pattern-extend', '^tt$,test_function$']
+        ['--kwargs-max-positional-arguments', '2', '--kwargs-ignore-function-pattern-extend', '(:?^tt$|test_function$)']
     )
     assert result.out_lines == []
