@@ -1,11 +1,10 @@
 import ast
-import inspect
+import sys
 from functools import partial
 from textwrap import dedent
 from typing import Set
 
 import pytest
-import sys
 
 from flake8_force_keyword_arguments import util
 
@@ -33,79 +32,24 @@ def test_get_invocation_line(source_code: str, expected: str) -> None:
 
 
 @pytest.mark.parametrize(
-    ('obj', 'expected'),
+    ('obj', 'expected_attribute_name'),
     (
         (1, None),
         ('qwr', None),
-        (
-            int,
-            inspect.Signature(
-                (
-                    inspect.Parameter(
-                        'self',
-                        kind=inspect.Parameter.POSITIONAL_ONLY,
-                    ),
-                    inspect.Parameter(
-                        'args',
-                        kind=inspect.Parameter.VAR_POSITIONAL,
-                    ),
-                    inspect.Parameter(
-                        'kwargs',
-                        kind=inspect.Parameter.VAR_KEYWORD,
-                    ),
-                )
-            ),
-        ),
-        (
-            getattr,
-            inspect.Signature(
-                (
-                    inspect.Parameter(
-                        'args',
-                        kind=inspect.Parameter.VAR_POSITIONAL,
-                    ),
-                    inspect.Parameter(
-                        'kwargs',
-                        kind=inspect.Parameter.VAR_KEYWORD,
-                    ),
-                )
-            ),
-        ),
-        (
-            type('TestClass', (), dict(__init__=lambda self, a, b: None)),
-            inspect.Signature(
-                (
-                    inspect.Parameter(
-                        'a',
-                        kind=inspect.Parameter.POSITIONAL_OR_KEYWORD,
-                    ),
-                    inspect.Parameter(
-                        'b',
-                        kind=inspect.Parameter.POSITIONAL_OR_KEYWORD,
-                    ),
-                )
-            ),
-        ),
-        (
-            type('TestClass', (), dict(__init__=lambda self: None)),
-            inspect.Signature(()),
-        ),
-        (
-            lambda c: None,
-            inspect.Signature((inspect.Parameter('c', kind=inspect.Parameter.POSITIONAL_OR_KEYWORD),)),
-        ),
-        (
-            partial(lambda c, d: None, 1),
-            inspect.Signature((inspect.Parameter('d', kind=inspect.Parameter.POSITIONAL_OR_KEYWORD),)),
-        ),
-        (
-            type('TestClass', (), dict(__call__=lambda self, a: None))(),
-            inspect.Signature((inspect.Parameter('a', kind=inspect.Parameter.POSITIONAL_OR_KEYWORD),)),
-        ),
+        (int, '__init__'),
+        (getattr, '__call__'),
+        (type('TestClass', (), dict(__init__=lambda self, a, b: None)), '$self$'),
+        (lambda c: None, '$self$'),
+        (type('TestClass', (), dict(__call__=lambda self, a: None))(), '$self$'),
     ),
 )
-def test_get_invocation_signature(obj: object, expected: inspect.Signature) -> None:
-    assert util.get_invocation_signature(obj) == expected
+def test_get_inspectable_function(obj, expected_attribute_name):
+    if expected_attribute_name == '$self$':
+        assert util.get_inspectable_function(obj) == obj
+    elif expected_attribute_name is None:
+        assert util.get_inspectable_function(obj) is None
+    else:
+        assert util.get_inspectable_function(obj) == getattr(obj, expected_attribute_name)
 
 
 @pytest.mark.parametrize(
@@ -137,6 +81,9 @@ def test_get_invocation_signature(obj: object, expected: inspect.Signature) -> N
         (type('TestClass', (), dict(__call__=lambda self, a: None))(), 0, True),
         (type('TestClass', (), dict(__call__=lambda self, a: None))(), 1, False),
         (type('TestClass', (), dict(__call__=lambda self, a: None))(), 2, False),
+        (issubclass, 0, True),
+        (issubclass, 1, True),
+        (issubclass, 2, True),
     ),
 )
 def test_does_callable_have_poa_more_than(obj: object, threshold: int, expected: bool) -> None:
