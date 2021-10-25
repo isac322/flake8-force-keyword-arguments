@@ -1,5 +1,12 @@
 # flake8-force-keyword-arguments
 
+[![PyPI](https://img.shields.io/pypi/v/flake8-force-keyword-arguments?label=pypi&logo=python&style=flat-square)](https://pypi.org/project/flake8-force-keyword-arguments/)
+[![Python Version](https://img.shields.io/pypi/pyversions/flake8-force-keyword-arguments.svg?style=flat-square&logo=python)](https://pypi.org/project/flake8-force-keyword-arguments/)
+![Codecov](https://img.shields.io/codecov/c/gh/isac322/flake8-force-keyword-arguments?style=flat-square&logo=codecov)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/isac322/flake8-force-keyword-arguments/master?logo=github&style=flat-square)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/isac322/flake8-force-keyword-arguments/ci/master?logo=github&style=flat-square)
+![Dependabot Status](https://flat.badgen.net/github/dependabot/isac322/flake8-force-keyword-arguments?icon=github)
+[![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 ___
 
 A flake8 plugin that is looking for function calls and forces to use keyword arguments
