@@ -9,7 +9,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  CI:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -38,44 +38,3 @@ jobs:
         with:
           fail_ci_if_error: true
           # token: ${{ secrets.CODECOV_TOKEN }}
-
----
-
-name: CD
-
-on:
-#  push:
-#    branches: [ master ]
-#    tags: [ '*' ]
-
-  push:
-    branches: [ master ]
-  pull_request:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v1
-        with:
-          python-version: '3.10'
-      - name: Install pypa/build
-        run: >-
-          python -m
-          pip install
-          build
-          --user
-      - name: Build a binary wheel and a source tarball
-        run: >-
-          python -m
-          build
-          --sdist
-          --wheel
-          --outdir dist/
-      - name: Publish distribution 📦 to Test PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          user: __token__
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
