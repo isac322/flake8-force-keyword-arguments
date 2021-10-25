@@ -23,9 +23,9 @@ else:
     from re import Pattern
 
 DEFAULT_MAX_POS_ARGS: Final[int] = 2
-DEFAULT_IGNORE_PATTERNS: Final[Pattern[str]] = re.compile(
-    r'(:?^logger.(:?log|debug|info|warning|error|exception|critical)$|__setattr__$|__delattr__$|__getattr__$)'
-)
+DEFAULT_IGNORE_PATTERNS: Final[
+    str
+] = r'(:?^logger.(:?log|debug|info|warning|error|exception|critical)$|__setattr__$|__delattr__$|__getattr__$)'
 DEFAULT_INSPECT_MODULES: Final[Tuple[str, ...]] = ('builtins',)
 DEFAULT_QUALIFIER_OPTION: Final[util.QualifierOption] = util.QualifierOption.BOTH
 
@@ -58,7 +58,7 @@ class Checker:
         )
         parser.add_option(  # pragma: no cover
             '--kwargs-ignore-function-pattern',
-            type=re.compile,
+            type=str,
             dest='ignore_function_pattern',
             default=DEFAULT_IGNORE_PATTERNS,
             parse_from_config=True,
@@ -66,7 +66,7 @@ class Checker:
         )
         parser.add_option(  # pragma: no cover
             '--kwargs-ignore-function-pattern-extend',
-            type=re.compile,
+            type=str,
             dest='ignore_function_pattern_extend',
             default=None,
             parse_from_config=True,
@@ -112,7 +112,7 @@ class Checker:
         cls._max_pos_args = options.max_positional_arguments
 
         ignore_patterns = (options.ignore_function_pattern, options.ignore_function_pattern_extend)
-        cls._ignore_patterns = tuple(filter(None, ignore_patterns))
+        cls._ignore_patterns = tuple(map(re.compile, filter(None, ignore_patterns)))
 
         qualifier_option = options.inspect_qualifier_option
 
