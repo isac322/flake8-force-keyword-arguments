@@ -92,7 +92,7 @@ def get_inspectable_function(o: object) -> Optional[Callable[..., Any]]:
     except (ValueError, TypeError):
         pass
     else:
-        return o
+        return o  # type: ignore
 
     if inspect.isclass(o):
         try:
@@ -100,7 +100,7 @@ def get_inspectable_function(o: object) -> Optional[Callable[..., Any]]:
         except (ValueError, TypeError):
             return None
         else:
-            return o.__init__
+            return o.__init__  # type: ignore[no-any-return,misc]
     elif callable(o):
         try:
             inspect.signature(o.__call__)
