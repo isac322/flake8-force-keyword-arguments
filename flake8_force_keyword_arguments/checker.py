@@ -23,12 +23,9 @@ else:
     from re import Pattern
 
 DEFAULT_MAX_POS_ARGS: Final[int] = 2
-DEFAULT_IGNORE_PATTERNS: Final[Tuple[str, ...]] = (
-    r'^logger.(:?log|debug|info|warning|error|exception|critical)$',
-    r'__setattr__$',
-    r'__delattr__$',
-    r'__getattr__$',
-)
+DEFAULT_IGNORE_PATTERNS: Final[
+    str
+] = r'(:?^logger.(:?log|debug|info|warning|error|exception|critical)$|__setattr__$|__delattr__$|__getattr__$)'
 DEFAULT_INSPECT_MODULES: Final[Tuple[str, ...]] = ('builtins',)
 DEFAULT_QUALIFIER_OPTION: Final[util.QualifierOption] = util.QualifierOption.BOTH
 
@@ -61,19 +58,17 @@ class Checker:
         )
         parser.add_option(  # pragma: no cover
             '--kwargs-ignore-function-pattern',
-            nargs='*',
+            type=str,
             dest='ignore_function_pattern',
-            comma_separated_list=True,
             default=DEFAULT_IGNORE_PATTERNS,
             parse_from_config=True,
             help='Ignore pattern list (default: %(default)s)',
         )
         parser.add_option(  # pragma: no cover
             '--kwargs-ignore-function-pattern-extend',
-            nargs='*',
+            type=str,
             dest='ignore_function_pattern_extend',
-            comma_separated_list=True,
-            default=(),
+            default=None,
             parse_from_config=True,
             help='Extend ignore pattern list.',
         )
@@ -116,12 +111,8 @@ class Checker:
     def parse_options(cls, options: Namespace) -> None:
         cls._max_pos_args = options.max_positional_arguments
 
-        ignore_pattern_extend = chain.from_iterable(options.ignore_function_pattern_extend)
-        if options.ignore_function_pattern == DEFAULT_IGNORE_PATTERNS:
-            ignore_function_patterns = options.ignore_function_pattern
-        else:
-            ignore_function_patterns = chain.from_iterable(options.ignore_function_pattern)
-        cls._ignore_patterns = tuple(map(re.compile, chain(ignore_function_patterns, ignore_pattern_extend)))
+        ignore_patterns = (options.ignore_function_pattern, options.ignore_function_pattern_extend)
+        cls._ignore_patterns = tuple(map(re.compile, filter(None, ignore_patterns)))
 
         qualifier_option = options.inspect_qualifier_option
 

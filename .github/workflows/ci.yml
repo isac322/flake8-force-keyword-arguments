@@ -26,7 +26,7 @@ jobs:
           poetry install --remove-untracked
       - name: Lint with flake8
         run: |
-          poetry run flake8 . --kwargs-inspect-module-extend functools,itertools --kwargs-ignore-function-pattern-extend ^pytest.mark.parametrize$
+          poetry run flake8 .
       - name: Type check with mypy
         run: |
           poetry run mypy -p flake8_force_keyword_arguments
