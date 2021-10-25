@@ -73,7 +73,11 @@ def does_callable_have_poa_more_than(o: object, poa_threshold: int) -> bool:
 
     sig = inspect.signature(func)
     params = tuple(sig.parameters.values())
-    if inspect.ismethoddescriptor(func) and len(params) > 0:
+    if (
+        (inspect.ismethoddescriptor(func) or inspect.iscoroutinefunction(func))
+        and len(params) > 0
+        and params[0].name in ('self', 'cls')
+    ):
         params = params[1:]
 
     poa_count = 0
