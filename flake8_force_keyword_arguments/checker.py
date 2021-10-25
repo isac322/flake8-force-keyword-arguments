@@ -23,7 +23,7 @@ else:
     from re import Pattern
 
 DEFAULT_MAX_POS_ARGS: Final[int] = 2
-DEFAULT_IGNORE_PATTERNS: Final[Pattern] = re.compile(
+DEFAULT_IGNORE_PATTERNS: Final[Pattern[str]] = re.compile(
     r'(:?^logger.(:?log|debug|info|warning|error|exception|critical)$|__setattr__$|__delattr__$|__getattr__$)'
 )
 DEFAULT_INSPECT_MODULES: Final[Tuple[str, ...]] = ('builtins',)
