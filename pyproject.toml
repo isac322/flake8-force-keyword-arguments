@@ -36,7 +36,7 @@ marisa-trie = "^0.7.7"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
-mypy = "^0.910"
+mypy = "^0.930"
 flake8 = ">=3.8"
 black = "^21.9b0"
 flake8-annotations-complexity = "^0.0.6"
