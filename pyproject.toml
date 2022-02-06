@@ -35,7 +35,7 @@ typing-extensions = {version = "*", python = "<3.8"}
 marisa-trie = "^0.7.7"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.5"
+pytest = "^7.0.0"
 mypy = "^0.931"
 flake8 = ">=3.8"
 black = "^21.9b0"
