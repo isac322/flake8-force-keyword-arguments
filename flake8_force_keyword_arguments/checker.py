@@ -1,12 +1,12 @@
 import ast
 import importlib
 import re
+import sys
 from argparse import Namespace
+from itertools import chain
 from typing import ClassVar, Iterable, Tuple, Type
 
-import sys
 from flake8.options.manager import OptionManager
-from itertools import chain
 from marisa_trie import Trie
 
 import flake8_force_keyword_arguments
