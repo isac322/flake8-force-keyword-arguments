@@ -100,11 +100,11 @@ def get_inspectable_function(o: object) -> Optional[Callable[..., Any]]:
 
     if inspect.isclass(o):
         try:
-            inspect.signature(o.__init__)  # type: ignore[misc]
+            inspect.signature(o.__init__)
         except (ValueError, TypeError):
             return None
         else:
-            return o.__init__  # type: ignore[no-any-return,misc]
+            return o.__init__  # type: ignore[no-any-return]
     elif callable(o):
         try:
             inspect.signature(o.__call__)
