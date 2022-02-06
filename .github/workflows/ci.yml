@@ -26,9 +26,9 @@ jobs:
             ~/.cache/pypoetry/artifacts
             ~/.cache/pypoetry/cache/repositories
             ~/.cache/pip
-          key: ${{ matrix.python_version }}-pip-${{ hashFiles('pyproject.toml') }}
+          key: ${{ matrix.python_ver }}-pip-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
-            ${{ matrix.python_version }}-pip-
+            ${{ matrix.python_ver }}-pip-
       - uses: abatilo/actions-poetry@v2.1.4
       - name: Install dependencies
         run: |
@@ -46,4 +46,4 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           fail_ci_if_error: true
-          flags: "${{ matrix.python_version }}"
+          flags: "${{ matrix.python_ver }}"
