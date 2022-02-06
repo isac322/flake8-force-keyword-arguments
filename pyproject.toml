@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flake8-force-keyword-arguments"
-version = "1.0.3"
+version = "1.0.4"
 description = "A flake8 extension that is looking for function calls and forces to use keyword arguments if there are more than X arguments"
 authors = ["Viktor Chaptsev <viktor@chaptsev.ru>", "Byeonghoon Yoo <bh322yoo@gmail.com>"]
 maintainers = ["Byeonghoon Yoo <bh322yoo@gmail.com>"]
