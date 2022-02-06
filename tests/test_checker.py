@@ -35,6 +35,17 @@ def test_default_ignore_function_pattern(flake8_path):
     assert result.out_lines == []
 
 
+def test_default_ignore_function_pattern_typing_cast(flake8_path):
+    (flake8_path / 'example.py').write_text(
+        '''
+        typing.cast(object, \'test\')
+        cast(object, 1)
+        ''',
+    )
+    result = flake8_path.run_flake8(['--kwargs-max-positional-arguments', '2'])
+    assert result.out_lines == []
+
+
 def test_ignore_function_pattern_extended(flake8_path):
     (flake8_path / 'example.py').write_text(
         'tt = lambda a, b, c: None',
