@@ -23,9 +23,15 @@ else:
     from re import Pattern
 
 DEFAULT_MAX_POS_ARGS: Final[int] = 2
-DEFAULT_IGNORE_PATTERNS: Final[
-    str
-] = r'(:?^logger.(:?log|debug|info|warning|error|exception|critical)$|__setattr__$|__delattr__$|__getattr__$)'
+DEFAULT_IGNORE_PATTERNS: Final[str] = (
+    r'(:?'
+    r'^logger.(:?log|debug|info|warning|error|exception|critical)$'
+    r'|__setattr__$'
+    r'|__delattr__$'
+    r'|__getattr__$'
+    r'|^(:?typing\.)?cast$'
+    r')'
+)
 DEFAULT_INSPECT_MODULES: Final[Tuple[str, ...]] = ('builtins',)
 DEFAULT_QUALIFIER_OPTION: Final[util.QualifierOption] = util.QualifierOption.BOTH
 
