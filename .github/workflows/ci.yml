@@ -29,9 +29,9 @@ jobs:
           key: ${{ matrix.python_version }}-pip-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
             ${{ matrix.python_version }}-pip-
+      - uses: abatilo/actions-poetry@v2.1.4
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade poetry wheel
           poetry install --remove-untracked
       - name: Lint with flake8
         run: |
