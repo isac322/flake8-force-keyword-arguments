@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python_ver }}
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: |
             ~/.cache/pypoetry/artifacts
