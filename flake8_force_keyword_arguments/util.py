@@ -84,7 +84,7 @@ def does_callable_have_poa_more_than(o: object, poa_threshold: int) -> bool:
     for p in params:
         if p.kind is inspect.Parameter.VAR_POSITIONAL:
             return True
-        elif p.kind is inspect.Parameter.POSITIONAL_ONLY:
+        if p.kind is inspect.Parameter.POSITIONAL_ONLY:
             poa_count += 1
 
     return poa_count >= poa_threshold

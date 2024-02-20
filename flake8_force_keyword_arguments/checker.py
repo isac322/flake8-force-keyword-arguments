@@ -95,7 +95,7 @@ class Checker:
             '--kwargs-inspect-qualifier-option',
             type=util.QualifierOption,
             dest='inspect_qualifier_option',
-            choices=tuple(map(lambda v: v.value, util.QualifierOption.__members__.values())),
+            choices=tuple(v.value for v in util.QualifierOption.__members__.values()),
             default=DEFAULT_QUALIFIER_OPTION.value,
             parse_from_config=True,
             help=(
@@ -118,15 +118,13 @@ class Checker:
 
         cls._ignore_trie = Trie(
             chain.from_iterable(
-                map(
-                    lambda module_name: util.list_pos_only_callables(
-                        m=importlib.import_module(module_name),
-                        parent_module_qualifier=module_name,
-                        poa_threshold=cls._max_pos_args,
-                        qualifier_option=qualifier_option,
-                    ),
-                    chain(options.inspect_module, options.inspect_module_extend),
+                util.list_pos_only_callables(
+                    m=importlib.import_module(module_name),
+                    parent_module_qualifier=module_name,
+                    poa_threshold=cls._max_pos_args,
+                    qualifier_option=qualifier_option,
                 )
+                for module_name in chain(options.inspect_module, options.inspect_module_extend)
             )
         )
 
@@ -138,7 +136,7 @@ class Checker:
             invocation_line = util.get_invocation_line(node)
 
             # ignored because of patterns
-            if any(map(lambda p: p.search(invocation_line), self._ignore_patterns)):
+            if any(p.search(invocation_line) for p in self._ignore_patterns):
                 continue
 
             # ignored because of inspection
