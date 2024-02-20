@@ -29,13 +29,12 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8.1"
-flake8 = ">=4"
+flake8 = ">5"
 marisa-trie = "^1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^8"
 mypy = "^1"
-flake8 = ">=3.8"
 black = "^24"
 flake8-annotations-complexity = "^0.0.8"
 flake8-bandit = "^4.1.1"
