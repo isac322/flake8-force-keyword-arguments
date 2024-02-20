@@ -32,7 +32,7 @@ jobs:
       - uses: snok/install-poetry@v1
       - name: Install dependencies
         run: |
-          poetry install --remove-untracked
+          poetry install --sync
       - name: Lint with flake8
         run: |
           poetry run flake8 .
