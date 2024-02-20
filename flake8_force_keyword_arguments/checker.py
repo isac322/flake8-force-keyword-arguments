@@ -4,18 +4,12 @@ import re
 import sys
 from argparse import Namespace
 from itertools import chain
-from typing import ClassVar, Iterable, Tuple, Type
-
-from flake8.options.manager import OptionManager
-from marisa_trie import Trie
+from typing import ClassVar, Final, Iterable, Tuple, Type
 
 import flake8_force_keyword_arguments
+from flake8.options.manager import OptionManager
 from flake8_force_keyword_arguments import util
-
-if sys.version_info < (3, 8):
-    from typing_extensions import Final
-else:
-    from typing import Final
+from marisa_trie import Trie
 
 if sys.version_info < (3, 9):
     from typing import Pattern
@@ -39,9 +33,9 @@ DEFAULT_QUALIFIER_OPTION: Final[util.QualifierOption] = util.QualifierOption.BOT
 class Checker:
     name: Final[str] = flake8_force_keyword_arguments.__name__
     version: Final[str] = flake8_force_keyword_arguments.__version__
-    MESSAGE_TEMPLATE: Final[
-        str
-    ] = 'FKA100 {function_name}\'s call uses {number_of_args} positional arguments, use keyword arguments.'
+    MESSAGE_TEMPLATE: Final[str] = (
+        'FKA100 {function_name}\'s call uses {number_of_args} positional arguments, use keyword arguments.'
+    )
 
     _max_pos_args: ClassVar[int] = DEFAULT_MAX_POS_ARGS
     _ignore_patterns: ClassVar[Tuple[Pattern[str], ...]] = ()

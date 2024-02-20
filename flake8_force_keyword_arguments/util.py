@@ -121,9 +121,9 @@ def get_invocation_line(c: ast.Call) -> str:
         name = getattr(a, 'id', getattr(a, 'attr', None))
 
         if child is None or not isinstance(child, ast.AST):
-            if name is None or not isinstance(name, str):
-                return ''
-            return name
+            if isinstance(name, str):
+                return name
+            return ''
 
         return '.'.join(filter(None, (dfs(child), name)))
 

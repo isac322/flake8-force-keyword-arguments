@@ -2,16 +2,10 @@ import ast
 import sys
 from functools import partial
 from textwrap import dedent
-from typing import Set
+from typing import Final, Set
 
 import pytest
-
 from flake8_force_keyword_arguments import util
-
-if sys.version_info < (3, 8):
-    from typing_extensions import Final
-else:
-    from typing import Final
 
 
 @pytest.mark.parametrize(
