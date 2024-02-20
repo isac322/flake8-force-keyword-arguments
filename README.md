@@ -6,7 +6,7 @@
 [![PyPI - Implementation](https://img.shields.io/pypi/implementation/flake8-force-keyword-arguments?style=flat-square&logo=python)]((https://pypi.org/project/flake8-force-keyword-arguments/))
 ![Codecov](https://img.shields.io/codecov/c/gh/isac322/flake8-force-keyword-arguments?style=flat-square&logo=codecov)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/isac322/flake8-force-keyword-arguments/master?logo=github&style=flat-square)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/isac322/flake8-force-keyword-arguments/CI/master?logo=github&style=flat-square)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/isac322/flake8-force-keyword-arguments/ci.yml?branch=master&logo=github&style=flat-square)
 ![Dependabot Status](https://flat.badgen.net/github/dependabot/isac322/flake8-force-keyword-arguments?icon=github)
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 ___
