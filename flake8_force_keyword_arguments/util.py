@@ -84,7 +84,7 @@ def does_callable_have_poa_more_than(o: object, poa_threshold: int) -> bool:
     for p in params:
         if p.kind is inspect.Parameter.VAR_POSITIONAL:
             return True
-        elif p.kind is inspect.Parameter.POSITIONAL_ONLY:
+        if p.kind is inspect.Parameter.POSITIONAL_ONLY:
             poa_count += 1
 
     return poa_count >= poa_threshold
@@ -121,9 +121,9 @@ def get_invocation_line(c: ast.Call) -> str:
         name = getattr(a, 'id', getattr(a, 'attr', None))
 
         if child is None or not isinstance(child, ast.AST):
-            if name is None or not isinstance(name, str):
-                return ''
-            return name
+            if isinstance(name, str):
+                return name
+            return ''
 
         return '.'.join(filter(None, (dfs(child), name)))
 
